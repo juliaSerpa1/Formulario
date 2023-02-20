@@ -5,36 +5,41 @@ const passwordInput = document.querySelector("#password");
 const jobSelect = document.querySelector("#job");
 const messageTextarea = document.querySelector("#message");
 
+const modal = document.querySelector("#modal");
+const closeButton = document.querySelector("#close-button");
+const modalMessage = document.querySelector(".modal-message");
+
+
 form.addEventListener("submit",(e) =>{
     e.preventDefault();
 
     // verifica nome vazio
     if(nameInput.value === ""){
-        alert("Por favor preencha seu nome!");
+        showModal("Por favor preencha seu nome!");
         return;
     }
 
     // verifica se o email esta correto
     if(emailInput.value === "" || !isEmailValid(emailInput.value)){
-        alert("Por favor, preencha seu email!");
+        showModal("Por favor, preencha seu email!");
         return;
     }
 
     // verificar se a senha esta correta
     if(!validatePassword(passwordInput.value, 8)){
-        alert("Por favor, senha precisa ter no minimo 8 digitos!");
+        showModal("Por favor, senha precisa ter no minimo 8 digitos!");
         return;
     }
 
-    // verificar sotuação foi selecionada
+    // verificar situação foi selecionada
     if(jobSelect.value === ""){
-        alert("Por favor, selecione sua situação!");
+        showModal("Por favor, selecione sua situação!");
         return;
     }
 
     // verifica se a messagem esta preenchida
     if(messageTextarea.value === ""){
-        alert("Por favor, preencha sua mensagem!");
+        showModal("Por favor, preencha sua mensagem!");
         return;
     }
 
@@ -64,3 +69,20 @@ function validatePassword(){
     }
     return false;
 }
+
+// Exibir modal
+function showModal(msg){
+    modalMessage.textContent = msg;
+    modal.style.display = "block";
+}
+
+// Fechar modal
+closeButton.addEventListener("click", (e) =>{
+    modal.style.display = "none";
+});
+
+window.addEventListener("click", (e) =>{
+    if(e.target === modal){
+        modal.style.display = "none";
+    }
+})
